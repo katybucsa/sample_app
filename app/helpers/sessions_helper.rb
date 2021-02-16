@@ -4,6 +4,7 @@ module SessionsHelper
   # Logs in the given user.
   def log_in(user)
     session[:user_id] = user.id
+    session[:session_token] = user.session_token
   end
   
   
@@ -46,13 +47,12 @@ module SessionsHelper
   def log_out
     forget(current_user)
     session.delete(:user_id)
-    # reset_session
     @current_user = nil
   end
   
   # Returns true if the given user is the current user.
   def current_user?(user)
-    user && user == current_user
+    user == current_user
   end
   
   
